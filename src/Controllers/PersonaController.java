@@ -5,6 +5,7 @@ import Models.Persona;
 /**
  * Controlador para manejar la lógica de operaciones sobre arrays de Persona.
  */
+
 public class PersonaController {
     /**
      * Método para ordenar un arreglo de Persona por edad utilizando el algoritmo de
@@ -12,10 +13,18 @@ public class PersonaController {
      * 
      * @param personas Array de Persona a ordenar.
      */
+    
     public void ordenarPorEdad(Persona[] personas) {
-        throw new UnsupportedOperationException("Not implemented yet.");
+        for (int i = 1; i < personas.length; i++) {
+            Persona aux = personas[i]; 
+            int j = i - 1;
+            while (j >= 0 && personas[j].getEdad() > aux.getEdad()) {
+                personas[j + 1] = personas[j]; 
+                j-- ;
+            }
+            personas[j + 1] = aux; 
+        }
     }
-
     /**
      * Método para buscar la primera persona con una edad específica en un array de
      * Persona.
@@ -26,7 +35,18 @@ public class PersonaController {
      *         encuentra.
      */
     public Persona buscarPorEdad(Persona[] personas, int edad) {
-        throw new UnsupportedOperationException("Not implemented yet.");
-
+        int inicio = 0; 
+        int fin = personas.length - 1;
+        while (inicio <= fin) {
+            int medio = (inicio + fin) / 2; 
+            if (personas[medio].getEdad() == edad) 
+                return personas[medio];
+            if (personas[medio].getEdad() < edad) 
+                inicio = medio + 1; 
+            else 
+                fin = medio - 1; 
+            }
+        return null;
     }
 }
+
